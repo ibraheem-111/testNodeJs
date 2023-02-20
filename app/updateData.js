@@ -4,7 +4,7 @@ import queryDB from "./queryDB.js";
 import dbFileCheck from "./dbFileCheck.js";
 
 
-export default async function updateData(current, info){
+export default async function updateData( info){
 
     dbFileCheck(info);
 
@@ -14,11 +14,20 @@ export default async function updateData(current, info){
             {
                 type: "input",
                 name: "name",
-                message:"enter the user's name to search: "
+                message:"enter the user's name : "
             }
-        ])
+        ]);
 
-        for (element in answers) {
+        let current;
+        
+        info.forEach((element) => {
+            if(element.name === answers.name ){
+                current=element;
+                updateDetails(current,info);
+            }
+        });
+
+/*        for (element in answers) {
 
             if(element.name === answers.name ){
 
@@ -27,7 +36,7 @@ export default async function updateData(current, info){
 
         }
 
-      
+      */
 
     }catch(error){
         console.log(error);
@@ -35,10 +44,11 @@ export default async function updateData(current, info){
     }
 }
 
-export default async function updateDetails(){
+export async function updateDetails(current,info){
     try{
         console.log("\nEnter Update Details: \n")
-        const answers= inquirer.prompt([
+
+        const responses= await inquirer.prompt([
             {
                 type: "input",
                 name: "name",
@@ -58,9 +68,23 @@ export default async function updateDetails(){
                   { name: "Y", value: "Adult" },
                   { name: "N", value: "Minor" },
                 ],
-              },
+              }
         ])
+
+        current.name=responses.name;
+        current.phone=responses.phone;
+        current.age=responses.age;
+
+        await fs.writeFile("db.json", JSON.stringify(info), function(err){
+            if(err){
+                console.log(err);
+            }else{
+                console.log("updated");
+            }
+        } )
     }catch(error){
         console.log("Something went wrong",error)
     }
 }
+
+queryDB(updateData);
