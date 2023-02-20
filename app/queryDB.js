@@ -31,7 +31,7 @@ export default async function queryDB(externalFunction)
             
         }
     } catch(error){
-        //aqsxasxasx
+        
         console.error(`Something Happened: ${error.message}`);
 
     }
