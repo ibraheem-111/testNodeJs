@@ -36,14 +36,18 @@ export default async function addData(info) {
               ],
             },
           ]);
-          const data = {
+          /*const data = {
             id: uuidv4(),
             name: answers.name,
             phone: answers.phone,
             age: answers.age,
-          };
-          info.push(data);
+          };*/
+          //const data={id=uuidv4(),name,phone,age}=answers
+          const data = (({ name, phone, age})=>{ return {id:uuidv4(), name ,phone, age}})(answers);
 
+          console.log(data);
+          info.push(data);
+          
           if (fs.existsSync("db.json")) {
             createDetails(info);
           } else {
