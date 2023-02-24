@@ -2,7 +2,7 @@ import express from "express";
 
 const app = express();
 
-app.set ('vew engine', "ejs");
+app.set ('view engine', "ejs");
 
 
 app.use(express.static('public'));
