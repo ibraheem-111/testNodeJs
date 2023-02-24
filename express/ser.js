@@ -2,11 +2,15 @@ import express from "express";
 
 const app = express();
 
-app.set ('vew engine', "ejs")
+app.set ('vew engine', "ejs");
+
+
+app.use(express.static('public'));
+app.use (logger);
 
 app.listen(3000);
 
-app.get('/', (req, res, next)=>{
+app.get('/',logger,  (req, res, next)=>{
 
     console.log('get request received');
 
@@ -16,3 +20,13 @@ app.get('/', (req, res, next)=>{
     res.render('index.ejs',{text:"world"});
      
 });
+
+function logger (req, res, next) {
+    console.log (req.originalUrl)
+    next()
+}
+
+import userRouter from "./routes/users.js";
+
+app.use('/users', userRouter);
+
