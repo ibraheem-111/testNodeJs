@@ -1,6 +1,9 @@
 import express from "express";
+import querry from "./querry.js";
 
 const app = express();
+
+app.use(express.urlencoded({extended : true}))
 
 app.set("view engine", "ejs");
 

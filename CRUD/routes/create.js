@@ -2,6 +2,7 @@ import express from "express";
 import fs from "fs/promises";
 // import fs from "fs";
 import {Writable} from "node:stream";
+import querry from "../querry.js";
 
 const route = express.Router();
 // const wstream =fs.createWriteStream("./files/name.txt")
@@ -9,8 +10,9 @@ const route = express.Router();
 
 class myWritable extends Writable{
     async _write(chunk, encoding , callback){
-        const fileHandle = await fs.open("./files/name.json","w");
-        const wr = fileHandle.write(JSON.stringify(chunk));
+        console.log(chunk);
+        const fileHandle = await fs.open("./files/names.json","w");
+        const wr = fileHandle.write(chunk);
 
         wr.then(()=>{
             console.log("File Write Successfull");
@@ -47,9 +49,16 @@ route.get("/", (req,res)=>{
 
 });
 
-route.post("/",(req,res)=>{
+route.post("/",async (req,res)=>{
+    let arr = [];
+
+    arr.concat( await querry("./files/names.json"));
+
     console.log("Post request recieved")
-    wstream._write(req.body.firstName)
+    arr.push({fistName : req.body.firstName});
+    wstream._write(JSON.stringify(arr));
+
+    res.redirect("/create");
 
 }) 
 
