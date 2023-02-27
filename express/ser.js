@@ -6,6 +6,7 @@ app.set ('view engine', "ejs");
 
 
 app.use(express.static('public'));
+app.use(express.urlencoded({extended : true}))
 app.use (logger);
 
 app.listen(3000);
@@ -22,7 +23,7 @@ app.get('/',logger,  (req, res, next)=>{
 });
 
 function logger (req, res, next) {
-    console.log (req.originalUrl)
+    //console.log (req.originalUrl)
     next()
 }
 
