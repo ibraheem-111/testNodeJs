@@ -7,7 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/create" method = "Post">
+    <form action="/user/update" method = "Post">
+        <label>ID 
+            <input type="text" name="ID" value="<%= locals.ID %>">
+
+        </label>
         <label>First Name 
             <input type="text" name="firstName" value="<%= locals.firstName %>">
 

@@ -10,13 +10,12 @@ const route = express.Router();
 
 class myWritable extends Writable{
     async _write(chunk, encoding , callback){
-        console.log(chunk);
+        // console.log(typeof(chunk));
         const fileHandle = await fs.open("./files/names.json","w");
-        const wr = fileHandle.write(chunk);
+        const wr = fileHandle.write(JSON.stringify(chunk));
 
         wr.then(()=>{
             console.log("File Write Successfull");
-            
         })
 
         .catch((err)=>{
@@ -50,16 +49,23 @@ route.get("/", (req,res)=>{
 });
 
 route.post("/",async (req,res)=>{
-    let arr = [];
+    // let arr = [];
+    // console.log(arr, "arr route post");
 
-    arr.concat( await querry("./files/names.json"));
+    const arr2 = await querry("./files/names.json");
 
+    // console.log(await querry("./files/names.json"));
+    // console.log(arr2, "arr2 in route post");
     console.log("Post request recieved")
-    arr.push({fistName : req.body.firstName});
-    wstream._write(JSON.stringify(arr));
+    const d = arr2.push({firstName : req.body.firstName, lastName: req.body.lastName, email:req.body.email});
+    arr2[d-1].ID=d;
+    // console.log(typeof(arr));
+    wstream._write(arr2);
 
     res.redirect("/create");
 
-}) 
+})
+
+
 
 export default route

@@ -1,5 +1,5 @@
 import express from "express";
-import querry from "./querry.js";
+// import querry from "./querry.js";
 
 const app = express();
 
@@ -16,5 +16,7 @@ app.get('/', (req,res)=>{
 });
 
 import create from "./routes/create.js";
+import user from "./routes/user.js";
 
 app.use("/create", create);
+app.use("/user", user);
