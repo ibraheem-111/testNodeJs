@@ -47,6 +47,7 @@ const users = [{name:'dfsf'},{name:'gnkdfj'}];
 
 
 router.param("id", (req, res, next, id )=>{
+    
     req.user = users [id]
     //console.log(id);
     next();
