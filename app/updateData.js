@@ -27,17 +27,6 @@ export default async function updateData( info){
             }
         });
 
-/*        for (element in answers) {
-
-            if(element.name === answers.name ){
-
-                updateDetails(element,info);
-            }
-
-        }
-
-      */
-
     }catch(error){
         console.log(error);
 
@@ -47,6 +36,7 @@ export default async function updateData( info){
 export async function updateDetails(current,info){
     try{
         console.log("\nEnter Update Details: \n")
+        const {id}= current;
 
         const responses= await inquirer.prompt([
             {
@@ -70,10 +60,8 @@ export async function updateDetails(current,info){
                 ],
               }
         ])
-
-        current.name=responses.name;
-        current.phone=responses.phone;
-        current.age=responses.age;
+        
+        const current = (({ name, phone, age})=>{ return {id, name ,phone, age}})(responses);
 
         await fs.writeFile("db.json", JSON.stringify(info), function(err){
             if(err){
