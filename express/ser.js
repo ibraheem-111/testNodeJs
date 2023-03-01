@@ -15,15 +15,12 @@ app.get('/',logger,  (req, res, next)=>{
 
     console.log('get request received');
 
-    //res.status(500).json({message:"Error"});
-    //res.download("ser.js");
-
     res.render('index.ejs',{text:"world"});
      
 });
 
 function logger (req, res, next) {
-    //console.log (req.originalUrl)
+
     next()
 }
 

@@ -1,6 +1,5 @@
 import http from "http";
-// import fs from "fs";
-// import path from "path";
+
 import {URL} from "node:url";
 import util from "node:util";
 import { StringDecoder } from "string_decoder";
@@ -10,21 +9,7 @@ import debug from "debug";
 
 const server = http.createServer((req,res)=>{
 
-    // res.setHeader('Content-type','image/jpeg');
-    // res.setHeader("Access-Conntrol-Allow-Origin",'*');
-    // res.writeHead(200);
-
-    // let read = fs.createReadStream("squirrel.jpg");
-
-    // read.pipe(res);
-
-    // res.sendDate;
-
-
-    // console.log(req.url);
-    // console.log(req.headers);
-    // let path = url.parse(req.url, true);
-
+   
     let decoder = new StringDecoder('utf-8');
     let buffer = '' ;
 
@@ -45,19 +30,7 @@ const server = http.createServer((req,res)=>{
                 res.end(util.inspect({fields:fields, files:files}));
             }
         })
-        // req.on('data',(chunk)=>{
-        //     buffer += decoder.write(chunk);
-        // })
-    
-        // req.on('end', ()=>{
-        //     buffer += decoder.end();
-        //     res.writeHead(200,"OK",{"Content-Type": "text/plain"});
-        //     res.write("the response\n");
-        //     res.write(util.inspect(path.searchParams) + `\n\n`);
-        //     res.write(buffer +"\n\n");
-        //     res.end("End of message to the browser");
-    
-        // })
+
 
     }else if (req.method.toLowerCase()== 'get'){
 
@@ -71,21 +44,6 @@ const server = http.createServer((req,res)=>{
         
     }
 
-    // req.on('data',(chunk)=>{
-    //     buffer += decoder.write(chunk);
-    // })
-
-    // req.on('end', ()=>{
-    //     buffer += decoder.end();
-    //     res.writeHead(200,"OK",{"Content-Type": "text/plain"});
-    //     res.write("the response\n");
-    //     res.write(util.inspect(path.searchParams) + `\n\n`);
-    //     res.write(buffer +"\n\n");
-    //     res.end("End of message to the browser");
-
-    // })
-
-    //sconsole.log(req.METHODS)
 
 }).listen(5000);
 
