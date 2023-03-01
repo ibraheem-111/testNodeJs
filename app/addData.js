@@ -36,13 +36,7 @@ export default async function addData(info) {
               ],
             },
           ]);
-          /*const data = {
-            id: uuidv4(),
-            name: answers.name,
-            phone: answers.phone,
-            age: answers.age,
-          };*/
-          //const data={id=uuidv4(),name,phone,age}=answers
+
           const data = (({ name, phone, age})=>{ return {id:uuidv4(), name ,phone, age}})(answers);
 
           console.log(data);
